@@ -8,7 +8,7 @@ class TimerProgress extends StatelessWidget {
   final int totalRounds;
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<timerservice>(context);
+    final provider = Provider.of<TimerService>(context);
     return Column(
       children: [
         Row(
@@ -17,7 +17,7 @@ class TimerProgress extends StatelessWidget {
             Text(
               "${provider.rounds}/$totalRounds",
               style: const TextStyle(
-                  fontSize: 30,
+                  fontSize: 22,
                   fontWeight: FontWeight.w700,
                   color: Colors.black54),
             ),

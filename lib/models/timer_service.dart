@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class timerservice extends ChangeNotifier {
+class TimerService extends ChangeNotifier {
   late Timer timer;
-  double currentduration = 1500;
-  double selectedTime = 1500;
+  late double currentduration;
+  late double selectedTime;
   bool timerPlaying = false;
   int rounds = 0;
 
@@ -32,7 +32,7 @@ class timerservice extends ChangeNotifier {
   void reset() {
     timer.cancel();
     currentState = "FOCUS";
-    currentduration = selectedTime = 1500;
+    currentduration = selectedTime;
 
     timerPlaying = false;
     notifyListeners();
@@ -52,8 +52,8 @@ class timerservice extends ChangeNotifier {
       rounds++;
     } else if (currentState == "BREAK") {
       currentState = "FOCUS";
-      currentduration = 1500;
-      selectedTime = 1500;
+      currentduration;
+      selectedTime;
     } else if (currentState == "FOCUS" && rounds == 3) {
       currentState = "LONG BREAK";
       currentduration = 1500;
@@ -61,8 +61,8 @@ class timerservice extends ChangeNotifier {
       rounds++;
     } else if (currentState == "LONG BREAK") {
       currentState = "FOCUS";
-      currentduration = 1500;
-      selectedTime = 1500;
+      currentduration;
+      selectedTime;
       rounds = 0;
     }
     notifyListeners();

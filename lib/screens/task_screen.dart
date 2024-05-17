@@ -21,7 +21,6 @@ class _TaskScreenState extends State<TaskScreen> {
   void getNewDate(DateTime date) {
     setState(() {
       selectedDate = date;
-      print(selectedDate);
     });
   }
 

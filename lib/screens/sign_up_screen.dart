@@ -90,16 +90,25 @@ class SignupPage extends StatelessWidget {
                 ),
                 Container(
                     padding: const EdgeInsets.only(top: 3, left: 3),
-                    child: ElevatedButton(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.cyan[100]!,
+                              Colors.greenAccent[100]!
+                            ]),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: TextButton(
                       onPressed: () {},
-                      child: Text(
-                        "Sign up",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      style: ElevatedButton.styleFrom(
+                      style: TextButton.styleFrom(
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Colors.lightBlueAccent,
+                        backgroundColor: Colors.black.withOpacity(0),
+                      ),
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(fontSize: 20, color: Colors.black54),
                       ),
                     )),
                 Row(
@@ -111,7 +120,7 @@ class SignupPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
+                                  builder: (context) => const LoginPage()));
                         },
                         child: const Text(
                           "Login",

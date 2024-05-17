@@ -3,7 +3,7 @@ class Task {
   bool isDone;
   final String note;
   final int pomodoro;
-  final int minutes;
+  final double minutes;
   String date;
   Task({
     required this.name,

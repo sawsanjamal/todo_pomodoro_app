@@ -46,7 +46,7 @@ class TaskData extends ChangeNotifier {
     String newTaskNote,
     String newDate,
     int newPomodoro,
-    int newMinutes,
+    double newMinutes,
   ) {
     _tasks.add(Task(
         name: newTaskTitle,

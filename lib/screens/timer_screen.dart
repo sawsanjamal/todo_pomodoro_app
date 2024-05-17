@@ -13,7 +13,7 @@ class TimerScreen extends StatelessWidget {
       required this.taskMinutes});
   final String taskTitle;
   final int taskPomodoro;
-  final int taskMinutes;
+  final double taskMinutes;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +50,9 @@ class TimerScreen extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            const timeController(),
+            const TimeController(),
             const SizedBox(
-              height: 30,
+              height: 60,
             ),
             TimerProgress(totalRounds: taskPomodoro),
             const SizedBox(

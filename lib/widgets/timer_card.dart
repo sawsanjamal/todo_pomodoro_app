@@ -3,12 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/models/timer_service.dart';
 
 class TimerCard extends StatelessWidget {
-  const TimerCard({super.key, required this.taskMinutes});
-  final int taskMinutes;
+  const TimerCard({
+    super.key,
+    required this.taskMinutes,
+  });
+  final double taskMinutes;
+
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<timerservice>(context);
-
+    final provider = Provider.of<TimerService>(context);
     return Column(
       children: [
         Text(
@@ -23,66 +26,37 @@ class TimerCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width / 3.2,
-              height: 170,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadiusDirectional.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 10,
-                        color: Colors.white.withOpacity(0.8),
-                        spreadRadius: 3,
-                        offset: const Offset(0, 2)),
-                  ]),
-              child: Center(
-                child: Text(
-                  (provider.currentduration ~/ 60).toString(),
-                  style: const TextStyle(
-                      color: Colors.lightBlueAccent,
-                      fontSize: 70,
-                      fontWeight: FontWeight.bold),
+                height: 170,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0),
                 ),
-              ),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            const Text(
-              ':',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width / 3.2,
-              height: 170,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadiusDirectional.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 10,
-                        color: Colors.white.withOpacity(0.8),
-                        spreadRadius: 3,
-                        offset: const Offset(0, 2)),
-                  ]),
-              child: Center(
-                child: Text(
-                  (provider.currentduration % 60) == 0
-                      ? "${(provider.currentduration % 60).round()}0"
-                      : (provider.currentduration % 60).round().toString(),
-                  style: TextStyle(
-                      color: renderColor(provider.currentState),
-                      fontSize: 70,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+                child: Row(
+                  children: [
+                    Text(
+                      (provider.currentduration ~/ 60).toString(),
+                      style: TextStyle(
+                          color: renderColor(provider.currentState),
+                          fontSize: 70,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      ':',
+                      style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[100]!),
+                    ),
+                    Text(
+                      (provider.currentduration % 60) == 0
+                          ? "${(provider.currentduration % 60).round()}0"
+                          : (provider.currentduration % 60).round().toString(),
+                      style: TextStyle(
+                          color: renderColor(provider.currentState),
+                          fontSize: 70,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                )),
           ],
         )
       ],
@@ -92,8 +66,8 @@ class TimerCard extends StatelessWidget {
 
 Color renderColor(String currentState) {
   if (currentState == "FOCUS") {
-    return Colors.lightBlueAccent;
+    return Colors.lightBlueAccent[100]!;
   } else {
-    return Colors.lightGreenAccent;
+    return Colors.lightGreenAccent[100]!;
   }
 }

@@ -3,36 +3,45 @@ import 'package:provider/provider.dart';
 
 import 'package:todo_app/models/timer_service.dart';
 
-class timeController extends StatefulWidget {
-  const timeController({super.key});
+class TimeController extends StatefulWidget {
+  const TimeController({super.key});
 
   @override
-  State<timeController> createState() => _timeControllerState();
+  State<TimeController> createState() => TimeControllerState();
 }
 
-class _timeControllerState extends State<timeController> {
+class TimeControllerState extends State<TimeController> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<timerservice>(context);
-    return Container(
-      width: 100,
-      height: 100,
-      decoration:
-          const BoxDecoration(color: Colors.black26, shape: BoxShape.circle),
-      child: Center(
-        child: IconButton(
-          onPressed: () {
-            provider.timerPlaying
-                ? Provider.of<timerservice>(context, listen: false).pause()
-                : Provider.of<timerservice>(context, listen: false).start();
-          },
-          icon: provider.timerPlaying
-              ? const Icon(Icons.pause)
-              : const Icon(Icons.play_arrow_sharp),
-          iconSize: 55,
-          color: Colors.white,
-        ),
-      ),
+    final provider = Provider.of<TimerService>(context);
+    return TextButton.icon(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.grey[100])),
+      onPressed: () {
+        provider.timerPlaying
+            ? Provider.of<TimerService>(context, listen: false).pause()
+            : Provider.of<TimerService>(context, listen: false).start();
+      },
+      icon: provider.timerPlaying
+          ? const Icon(
+              Icons.pause,
+              size: 30,
+              color: Colors.black54,
+            )
+          : const Icon(
+              Icons.play_arrow_sharp,
+              size: 30,
+              color: Colors.black54,
+            ),
+      label: provider.timerPlaying
+          ? const Text(
+              'Pause',
+              style: TextStyle(fontSize: 20, color: Colors.black54),
+            )
+          : const Text(
+              'Resume',
+              style: TextStyle(fontSize: 20, color: Colors.black54),
+            ),
     );
   }
 }

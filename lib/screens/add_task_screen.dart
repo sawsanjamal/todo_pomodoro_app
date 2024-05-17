@@ -40,11 +40,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   String newTaskTitle = "";
   String newTaskNote = '';
   int newPomodoro = 1;
-  int newMinutes = 25;
+  double newMinutes = 25;
 
   onChangedMinutes(value) {
     setState(() {
-      newMinutes = value;
+      double newValue = value.toDouble();
+      newMinutes = newValue;
     });
   }
 

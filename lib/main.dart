@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider<TaskData>(create: (context) => TaskData()),
-      ChangeNotifierProvider(create: (context) => timerservice()),
+      ChangeNotifierProvider(create: (context) => TimerService()),
     ], child: const MaterialApp(home: TaskScreen()));
   }
 }

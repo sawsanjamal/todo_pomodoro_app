@@ -63,17 +63,24 @@ class LoginPage extends StatelessWidget {
           ),
           obscureText: true,
         ),
-        const SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            shape: const StadiumBorder(),
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            backgroundColor: Colors.lightBlueAccent,
-          ),
-          child: const Text(
-            "Login",
-            style: TextStyle(fontSize: 20),
+        const SizedBox(height: 30),
+        Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.cyan[100]!, Colors.greenAccent[100]!]),
+              borderRadius: BorderRadius.circular(20)),
+          child: TextButton(
+            onPressed: () {},
+            style: TextButton.styleFrom(
+              shape: const StadiumBorder(),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+            ),
+            child: const Text(
+              "Login",
+              style: TextStyle(fontSize: 20, color: Colors.black54),
+            ),
           ),
         )
       ],
