@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/auth.dart';
 import 'package:todo_app/screens/login_screen.dart';
+import 'package:todo_app/screens/task_screen.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -51,6 +55,7 @@ class SignupPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     TextField(
+                      controller: _emailController,
                       decoration: InputDecoration(
                           hintText: "Email",
                           border: OutlineInputBorder(
@@ -62,6 +67,7 @@ class SignupPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     TextField(
+                      controller: _passwordController,
                       decoration: InputDecoration(
                         hintText: "Password",
                         border: OutlineInputBorder(
@@ -100,7 +106,17 @@ class SignupPage extends StatelessWidget {
                             ]),
                         borderRadius: BorderRadius.circular(20)),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final message = await AuthService().registration(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        );
+                        if (message!.contains('Success')) {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const TaskScreen()));
+                        }
+                      },
                       style: TextButton.styleFrom(
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.symmetric(vertical: 16),

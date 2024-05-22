@@ -1,10 +1,12 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
 
 import 'package:todo_app/screens/add_task_screen.dart';
+import 'package:todo_app/screens/login_screen.dart';
 import 'package:todo_app/widgets/color_container.dart';
 import 'package:todo_app/widgets/task_list.dart';
 import 'package:todo_app/widgets/time_picker.dart';
@@ -36,7 +38,14 @@ class _TaskScreenState extends State<TaskScreen> {
                     backgroundColor:
                         MaterialStatePropertyAll(Colors.grey[100])),
                 icon: const Icon(Icons.person),
-                onPressed: () {},
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()));
+                },
                 //add logout functionality
                 color: Colors.black54,
               ))

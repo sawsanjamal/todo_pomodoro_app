@@ -4,9 +4,14 @@ import 'package:todo_app/models/task_data.dart';
 import 'package:todo_app/screens/sign_up_screen.dart';
 import 'package:todo_app/screens/task_screen.dart';
 import 'package:todo_app/models/timer_service.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +23,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(providers: [
       ChangeNotifierProvider<TaskData>(create: (context) => TaskData()),
       ChangeNotifierProvider(create: (context) => TimerService()),
-    ], child: const MaterialApp(home: TaskScreen()));
+    ], child: const MaterialApp(home: SignupPage()));
   }
 }
