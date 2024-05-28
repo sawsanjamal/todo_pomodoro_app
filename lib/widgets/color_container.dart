@@ -11,8 +11,8 @@ class ColorContainer extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.lightGreenAccent[100]!,
-              Colors.lightBlueAccent[100]!
+              Theme.of(context).colorScheme.background,
+              Theme.of(context).colorScheme.primary
             ]),
       ),
     );

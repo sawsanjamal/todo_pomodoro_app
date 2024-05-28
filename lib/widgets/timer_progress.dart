@@ -16,21 +16,22 @@ class TimerProgress extends StatelessWidget {
           children: [
             Text(
               "${provider.rounds}/$totalRounds",
-              style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black54),
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
             ),
           ],
         ),
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          'ROUNDS',
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black54),
-        ),
+        Text('ROUNDS',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSecondary)),
       ],
     );
   }

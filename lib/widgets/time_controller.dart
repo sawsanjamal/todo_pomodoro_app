@@ -16,31 +16,38 @@ class TimeControllerState extends State<TimeController> {
     final provider = Provider.of<TimerService>(context);
     return TextButton.icon(
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.grey[100])),
+          backgroundColor: MaterialStateProperty.all(
+              Theme.of(context).colorScheme.secondary)),
       onPressed: () {
         provider.timerPlaying
             ? Provider.of<TimerService>(context, listen: false).pause()
             : Provider.of<TimerService>(context, listen: false).start();
       },
       icon: provider.timerPlaying
-          ? const Icon(
+          ? Icon(
               Icons.pause,
               size: 30,
-              color: Colors.black54,
+              color: Theme.of(context).colorScheme.onSecondary,
             )
-          : const Icon(
+          : Icon(
               Icons.play_arrow_sharp,
               size: 30,
-              color: Colors.black54,
+              color: Theme.of(context).colorScheme.onSecondary,
             ),
       label: provider.timerPlaying
-          ? const Text(
+          ? Text(
               'Pause',
-              style: TextStyle(fontSize: 20, color: Colors.black54),
+              style: TextStyle(
+                fontSize: 20,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
             )
-          : const Text(
+          : Text(
               'Resume',
-              style: TextStyle(fontSize: 20, color: Colors.black54),
+              style: TextStyle(
+                fontSize: 20,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
             ),
     );
   }

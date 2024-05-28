@@ -20,7 +20,7 @@ class ScrollableList extends StatelessWidget {
         child: ListWheelScrollView.useDelegate(
           controller: _scrollController,
           itemExtent: _itemHeight,
-          physics: FixedExtentScrollPhysics(),
+          physics: const FixedExtentScrollPhysics(),
           overAndUnderCenterOpacity: 0.7,
           perspective: 0.002,
           useMagnifier: true,

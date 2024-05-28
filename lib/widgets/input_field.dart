@@ -10,6 +10,7 @@ class InputField extends StatelessWidget {
 
   final String hint;
   final String title;
+
   final void Function(String?) onChanged;
 
   @override
@@ -23,23 +24,26 @@ class InputField extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
               ),
               TextFormField(
                 onChanged: onChanged,
                 decoration: InputDecoration(
                   hintText: hint,
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey[100]!),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(40),
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey[100]!),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(40),
                     ),

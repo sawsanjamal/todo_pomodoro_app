@@ -23,16 +23,16 @@ class TimerScreen extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-              Colors.lightBlueAccent[100]!,
-              Colors.lightGreenAccent[100]!
+              Theme.of(context).colorScheme.background,
+              Theme.of(context).colorScheme.primary
             ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               taskTitle,
-              style: const TextStyle(
-                color: Colors.black54,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondary,
                 fontWeight: FontWeight.w500,
                 fontSize: 40,
                 inherit: false,

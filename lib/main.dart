@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task_data.dart';
 import 'package:todo_app/screens/sign_up_screen.dart';
-import 'package:todo_app/screens/task_screen.dart';
 import 'package:todo_app/models/timer_service.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:todo_app/themes/light_theme.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,9 +21,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider<TaskData>(create: (context) => TaskData()),
-      ChangeNotifierProvider(create: (context) => TimerService()),
-    ], child: const MaterialApp(home: SignupPage()));
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<TaskData>(create: (context) => TaskData()),
+          ChangeNotifierProvider(create: (context) => TimerService()),
+        ],
+        child: MaterialApp(
+          home: const SignupPage(),
+          theme: lightTheme,
+        ));
   }
 }

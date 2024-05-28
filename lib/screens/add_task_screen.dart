@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +62,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     // int totalMinutes = (newMinutes * newPomodoro / totalHours).round();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         flexibleSpace: const ColorContainer(),
       ),
       body: Container(
@@ -72,8 +73,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.lightBlueAccent[100]!,
-                Colors.lightGreenAccent[100]!
+                Theme.of(context).colorScheme.background,
+                Theme.of(context).colorScheme.primary
               ]),
         ),
         child: Column(
@@ -81,14 +82,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           children: [
             Column(
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 400,
                   height: 80,
                   child: Text(
                     "Add A New Task",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.black54,
+                        color: Theme.of(context).colorScheme.onSecondary,
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   ),
@@ -149,13 +150,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             const Spacer(),
             TextButton.icon(
               style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.grey[100]),
+                backgroundColor: MaterialStatePropertyAll(
+                    Theme.of(context).colorScheme.secondary),
               ),
               icon: const Icon(Icons.add),
-              label: const Text(
+              label: Text(
                 'Add task',
                 style: TextStyle(
-                    color: Colors.black54,
+                    color: Theme.of(context).colorScheme.onSecondary,
                     fontWeight: FontWeight.bold,
                     fontSize: 15),
               ),
@@ -166,6 +168,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     DateFormat.yMMMd().format(widget.selectedDate),
                     newPomodoro,
                     newMinutes);
+                FirebaseFirestore.instance.collection("Task Details").add({
+                  "Name": newTaskTitle,
+                  "Note": newTaskNote,
+                  "Date": DateFormat.yMMMd().format(widget.selectedDate),
+                  "Pomodoro": newPomodoro,
+                  "Minutes": newMinutes
+                });
                 Navigator.pop(context);
               },
             ),

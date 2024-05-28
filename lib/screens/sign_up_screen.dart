@@ -1,15 +1,41 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:todo_app/auth.dart';
+import 'package:todo_app/models/add_data.dart';
 import 'package:todo_app/screens/login_screen.dart';
 import 'package:todo_app/screens/task_screen.dart';
+import 'package:todo_app/utils.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
   @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  Uint8List? _image;
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
+  }
+
+  void saveProfile() async {
+    String email = _emailController.text;
+    String username = _usernameController.text;
+    String resp = await StoreData()
+        .saveData(username: username, email: email, file: _image!);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -41,15 +67,50 @@ class SignupPage extends StatelessWidget {
                     )
                   ],
                 ),
+                Center(
+                  child: Stack(
+                    children: [
+                      _image != null
+                          ? CircleAvatar(
+                              radius: 35,
+                              backgroundImage: MemoryImage(_image!),
+                            )
+                          : const CircleAvatar(
+                              radius: 35,
+                              backgroundImage: NetworkImage(
+                                  'https://cdn-icons-png.flaticon.com/128/6681/6681204.png'),
+                            ),
+                      Positioned(
+                        top: -15,
+                        left: 36,
+                        child: IconButton(
+                          onPressed: selectImage,
+                          icon: Icon(
+                            Icons.add_a_photo_outlined,
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Column(
                   children: <Widget>[
+                    const SizedBox(
+                      height: 20,
+                    ),
                     TextField(
+                      controller: _usernameController,
                       decoration: InputDecoration(
                           hintText: "Username",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(18),
                               borderSide: BorderSide.none),
-                          fillColor: Colors.lightBlueAccent.withOpacity(0.1),
+                          fillColor: Theme.of(context)
+                              .colorScheme
+                              .onPrimaryContainer
+                              .withOpacity(0.1),
                           filled: true,
                           prefixIcon: const Icon(Icons.person)),
                     ),
@@ -61,7 +122,10 @@ class SignupPage extends StatelessWidget {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(18),
                               borderSide: BorderSide.none),
-                          fillColor: Colors.lightBlueAccent.withOpacity(0.1),
+                          fillColor: Theme.of(context)
+                              .colorScheme
+                              .onPrimaryContainer
+                              .withOpacity(0.1),
                           filled: true,
                           prefixIcon: const Icon(Icons.email)),
                     ),
@@ -73,7 +137,10 @@ class SignupPage extends StatelessWidget {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(18),
                             borderSide: BorderSide.none),
-                        fillColor: Colors.lightBlueAccent.withOpacity(0.1),
+                        fillColor: Theme.of(context)
+                            .colorScheme
+                            .onPrimaryContainer
+                            .withOpacity(0.1),
                         filled: true,
                         prefixIcon: const Icon(Icons.password),
                       ),
@@ -86,7 +153,10 @@ class SignupPage extends StatelessWidget {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(18),
                             borderSide: BorderSide.none),
-                        fillColor: Colors.lightBlueAccent.withOpacity(0.1),
+                        fillColor: Theme.of(context)
+                            .colorScheme
+                            .onPrimaryContainer
+                            .withOpacity(0.1),
                         filled: true,
                         prefixIcon: const Icon(Icons.password),
                       ),
@@ -101,8 +171,8 @@ class SignupPage extends StatelessWidget {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              Colors.cyan[100]!,
-                              Colors.greenAccent[100]!
+                              Theme.of(context).colorScheme.onBackground,
+                              Theme.of(context).colorScheme.onPrimary
                             ]),
                         borderRadius: BorderRadius.circular(20)),
                     child: TextButton(
@@ -112,6 +182,7 @@ class SignupPage extends StatelessWidget {
                           password: _passwordController.text,
                         );
                         if (message!.contains('Success')) {
+                          saveProfile();
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) => const TaskScreen()));
@@ -122,9 +193,12 @@ class SignupPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         backgroundColor: Colors.black.withOpacity(0),
                       ),
-                      child: const Text(
+                      child: Text(
                         "Sign Up",
-                        style: TextStyle(fontSize: 20, color: Colors.black54),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
                       ),
                     )),
                 Row(
@@ -138,9 +212,12 @@ class SignupPage extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => const LoginPage()));
                         },
-                        child: const Text(
+                        child: Text(
                           "Login",
-                          style: TextStyle(color: Colors.lightBlueAccent),
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer),
                         ))
                   ],
                 )

@@ -16,8 +16,10 @@ class TimerCard extends StatelessWidget {
       children: [
         Text(
           provider.currentState,
-          style: const TextStyle(
-              fontSize: 30, fontWeight: FontWeight.w500, color: Colors.white),
+          style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w500,
+              color: Theme.of(context).colorScheme.tertiary),
         ),
         const SizedBox(
           height: 40,
@@ -44,7 +46,7 @@ class TimerCard extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 50,
                           fontWeight: FontWeight.bold,
-                          color: Colors.grey[100]!),
+                          color: Theme.of(context).colorScheme.secondary),
                     ),
                     Text(
                       (provider.currentduration % 60) == 0

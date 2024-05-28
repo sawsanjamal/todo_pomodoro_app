@@ -8,8 +8,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -31,25 +31,31 @@ class LoginPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TextField(
-                    controller: _emailController,
+                    controller: emailController,
                     decoration: InputDecoration(
                         hintText: "Email",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(18),
                             borderSide: BorderSide.none),
-                        fillColor: Colors.lightBlueAccent.withOpacity(0.1),
+                        fillColor: Theme.of(context)
+                            .colorScheme
+                            .onPrimaryContainer
+                            .withOpacity(0.1),
                         filled: true,
                         prefixIcon: const Icon(Icons.person)),
                   ),
                   const SizedBox(height: 10),
                   TextField(
-                    controller: _passwordController,
+                    controller: passwordController,
                     decoration: InputDecoration(
                       hintText: "Password",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(18),
                           borderSide: BorderSide.none),
-                      fillColor: Colors.lightBlueAccent.withOpacity(0.1),
+                      fillColor: Theme.of(context)
+                          .colorScheme
+                          .onPrimaryContainer
+                          .withOpacity(0.1),
                       filled: true,
                       prefixIcon: const Icon(Icons.password),
                     ),
@@ -62,15 +68,15 @@ class LoginPage extends StatelessWidget {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              Colors.cyan[100]!,
-                              Colors.greenAccent[100]!
+                              Theme.of(context).colorScheme.onBackground,
+                              Theme.of(context).colorScheme.onPrimary
                             ]),
                         borderRadius: BorderRadius.circular(20)),
                     child: TextButton(
                       onPressed: () async {
                         final message = await AuthService().login(
-                          email: _emailController.text,
-                          password: _passwordController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
                         );
                         if (message!.contains('Success')) {
                           Navigator.of(context).pushReplacement(
@@ -78,15 +84,20 @@ class LoginPage extends StatelessWidget {
                               builder: (context) => const TaskScreen(),
                             ),
                           );
+                        } else {
+                          print(message);
                         }
                       },
                       style: TextButton.styleFrom(
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: const Text(
+                      child: Text(
                         "Login",
-                        style: TextStyle(fontSize: 20, color: Colors.black54),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
                       ),
                     ),
                   )
@@ -95,18 +106,21 @@ class LoginPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Dont have an account? "),
+                  const Text("Don't have an account?"),
                   TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SignupPage()));
+                                builder: (context) => const SignupPage()));
                       },
-                      child: const Text(
+                      child: Text(
                         "Sign Up",
-                        style: TextStyle(color: Colors.lightBlueAccent),
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer),
                       ))
                 ],
               ),

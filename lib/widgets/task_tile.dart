@@ -42,7 +42,7 @@ class _CustomTaskTileState extends State<CustomTaskTile> {
             child: Container(
               padding: const EdgeInsets.only(bottom: 15),
               decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: Theme.of(context).colorScheme.secondary,
                   borderRadius: BorderRadius.circular(20)),
               child: Row(
                 children: <Widget>[
@@ -77,7 +77,8 @@ class _CustomTaskTileState extends State<CustomTaskTile> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontSize: 14.0,
-                                color: Colors.black54,
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
                                 decoration: widget.isChecked
                                     ? TextDecoration.lineThrough
                                     : null),
@@ -93,9 +94,9 @@ class _CustomTaskTileState extends State<CustomTaskTile> {
                         ),
                         Text(
                           widget.selectedDate,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 13.0,
-                            color: Colors.black54,
+                            color: Theme.of(context).colorScheme.onSecondary,
                           ),
                         ),
                       ],
